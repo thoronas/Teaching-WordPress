@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		
-		<title>WordPress Lesson 1: Introduction</title>
+		<title>WordPress Lesson 1: Custom Themes</title>
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -29,7 +29,7 @@
 			<div class="slides">
 				<section>
 					<h1>WordPress</h1>
-					<h2>Introduction</h2>
+					<h2>Custom Themes - <br>Basic Template Structure</h2>
 					<script>
 						// Delicously hacky. Look away.
 						if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
@@ -37,158 +37,108 @@
 				</section>
 				
 				<section>
-					<h2>What's WordPress?</h2>
-					<p>WordPress is a Content Management System (CMS) that uses <a href="http://www.php.net/">PHP</a> and <a href="http://www.mysql.com/">MySQL</a>.</p>
+						<h2>What do you need?</h2>
+						<p>Don't re-invent the wheel. Start with a starter theme.</p>
+						<ul>
+							<li><a href="https://github.com/crondeau/BLM-Basic-Starter-WordPress-Theme-HTML5">Basic theme</a> by Bluelime Media - created specifically for this course.</li>
+							<li><a href="http://underscores.me/">Underscores</a> by Automattic</li>
+							<li><a href="http://digwp.com/2010/02/blank-wordpress-theme/">Blank theme</a> by Chris Coyier</li>
+							<li><a href="http://themble.com/bones/">Bones</a> by Themble</li>
+						</ul>
 
-					<p>It's used to create <strong>dynamic</strong> websites instead of <strong>static</strong> ones.</p>
-
-					<p>Similarly to Joomla and Drupal, WordPress is distributed under a <a href="http://www.gnu.org/licenses/gpl.html">GPL license</a> which makes it part of the open source platform.</p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you run the speaker notes server.
-					</aside>
-				</section>
-				
-				<!-- Example of nested vertical slides -->
-				<section>
-					<h2>WP Advantages</h2>
-					<ul>
-						<li>Can be used as a CMS &amp; blog</li>
-						<li>Fully customizable</li>
-						<li>Thousands of themes and plugins to choose from</li>
-						<li>It's FREE</li>
-						<li>It's not as geeky as Drupal or Joomla</li>
-						<li>Releases come out regularly</li>
-						<li>The community is Awesome!</li>
-					</ul>
+						<p>Once you've coded a few sites, you will know what you need and what works best for you.</p>
 				</section>
 
 				<section>
-					<h2>WP Disadvantages</h2>
-					<ul>
-						<li>Open to hackers</li>
-						<li>Releases come out regularly</li>
-						<li>Plugins are a necessary evil</li>
-						<li>It is still built by geeks</li>
-						<li>The learning curve can be steep</li>
-					</ul>
+					<h2>Required Theme Files</h2>
+					<p>Every theme must have an styles.css and index.php in order to work. Everything else is recommended but not required. </p>
+					<p>stlyes.css is not just for styling but also is where you place your themes info, such as the theme name and the author (You). </p>
+					<pre><code class="css">/*
+Theme Name: Anvil Framework
+Author: Forge and Smith
+Author URI: http://forgeandsmith.com/
+Description: Starter Theme for Forge and Smith
+Version: 1.0
+*/</code></pre>
 				</section>
-
 				<section>
-					<h2>PHP/MySQL?</h2>
-					<h2>How much do you need to know</h2>
-					<p>Compared to other platforms, WordPress is easy to use because you don't need to know any PHP, but you do need to be able to <strong>recognize</strong> PHP tags.</p>
-					<p>When we need to use PHP, we put it inside<br>
-						<code>&lt;?php and ?&gt;</code> tags<br> so our server will know to process it as PHP.
-				</section>
-
-				<section>
-					<h2>Common Tags</h2>
-					<pre><code>
-&lt;?php the_title(); ?&gt;
-
-&lt;?php if( has_post_thumbnail() ) ?&gt;
-
-&lt;?php get_sidebar(); ?&gt;
-
-&lt;?php get_template_directory_uri(); ?&gt;
-					</code></pre>
+					<h2>Index.php</h2>
+					<p>The index file controls what the homepage of your site looks like. It is also the fallback for content that doesn't have a template file. By default it is a loop that displays the most recent blog posts, with a link in the bottom to view older posts.</p>
 					
-					<p>WordPress has a list of <a href="http://codex.wordpress.org/Template_Tags">all template tags</a> on the Codex.</p>
+					<p>Alternately, you can set a static front page as the<br> home page by going to:<br>
+						<code>wp-admin -> settings -> reading</code></p>
 				</section>
 				
 				<section>
-					<h1>WordPress<br>.com vs .org</h1>
-				</section>
-
-				<section>
-					<h2>WordPress.com</h2>
-					<h2>.COM == hosted solution.</h2>
-					<p>Everything is taken care of for you - Hosting, server and database set up, spam, backups, upgrades.</p>
-					<p>The drawbacks of this option is that you must choose one of their themes, you can't install plugins and customization is very limited.</p>
-				</section>
-
-				<section>
-					<h2>WordPress.org</h2>
-					<h2>.ORG  == self hosted solution.</h2>
-					<p>Web developers download the files, install them and run them on THEIR server.</p>
+					<h2>Page.php</h2>
+					<p>Page.php controls what pages look like. Pages are used for static content, such as contact us, about us, etc...</p>
 				</section>
 				
 				<section>
-					<h2>Installing WordPress</h2>
-					<p>To run WordPress you need a server.</p>
-					<p>Apache or Linux is best.</p>
-					<p>Options for building WordPress sites: </p>
+					<h2>Single.php</h2>
+					<p>The display of individual posts is controlled by the single.php. It contains a loop that queries just one post and displays it.</p>
+					
+				</section>
+				<section>
+					<h2>Archive.php</h2>
+					<p>You can control the look and feel of different archives using this template file. The archive.php will be used when displaying post per category, tag, date, author, etc... </p>
+					
+				</section>
+				<section>
+					<h2>Gobal files</h2>
+					<p>Some files appear on all of your website pages</p>
+					<ul>
+							<li>header.php - displays all the content in your header area</li>
+							<li>footer.php - displays all the cotent in the footer area</li>
+							<li>sidebar.php - displays sidebar content</li>
+						
+					</ul>
+				</section>
+				<section>
+					<h2>Functions file</h2>
+					<p>Code that lets you define and augment default behaviours in WordPress goes in here. You can add functionality, change how content is handled, or add code that will use WordPress hooks (which we will get into later).</p>
+				</section>
+				<section>
+					<h2>Planning Templates</h2>
+					<p>Your design will dictate what template your need.</p>
+					<p>Understanding how templates work is crucial.</p>
+					<p>For example, a 5 page one column website<br> with no blog may need:</p>
+					<ul>
+							<li>index.php</li>
+							<li>style.css</li>
+							<li>header.php</li> 
+							<li>footer.php</li>
+							<li>functions.php</li></ul>
+				</section>
+				<section>
+					<h2>To set up your project</h2>
 					<ol>
-						<li>Run a server locally on your machine</li>
-						<li>Set up hosting with a hosting provider</li>
+						<li>Make a copy of your starter theme in a folder &amp; give it a unique name</li>
+						<li>Open the stylesheet and edit the comment at the very top</li>
+						<li>Create a new screenshot(screenshot.png) based on your design</li>
+						<li>Replace the favicon with a new one</li>
+						<li>Upload and activate your theme</li>
+					</ol>
+				</section>
+
+				<section>
+					<h1>Exercise</h1>
+					
+					<ol>
+						<li>Open and study the PSD provided and determine what templates are needed.</li>
+						<li>Set up your projects folder with a copy of the <a href="https://github.com/crondeau/BLM-Basic-Starter-WordPress-Theme-HTML5">Bluelime Basic starter</a> theme.</li>
+						<li>Create the pages and a few blog posts to help you with the site build.</li>
+						<li>Set up your home page as the front page and select your blog page to display your posts.</li>
+						<li>Convert the PSD into HTML and CSS</li>
 					</ol>
 				</section>
 				
 				<section>
-			     <h2>Option 1 - Localhost</h2>  
-				<p>To develop your custom WordPress Theme on your computer, you'll need to run a "local server" which essentially mimicks a web server and includes<br> Apache, MySQL and PHP.<br><br></p> 
-					<ul>
-					<li>If you’re on a Windows computer download <a href="http://www.apachefriends.org/en/xampp-windows.html">XAMP</a> or <a href="http://bitnami.com/">Bitnami</a></li>
-					<li>If you’re running a Mac download <a href="http://www.mamp.info/en/index.html">MAMP</a> </li>
-					</ul>
-	
-			     </section>
-
-			    <section>
-			     <h2>Option 2 - Hosting provider</h2> 
-
-				<p>If you want to share your website with the public, you'll need a domain name and a host.</p>
-				<p>Most hosting providers offer WordPress hosting these days, but do check to see if they provide:</p>
-
-			<ul>
-				<li>PHP 5</li>
-				<li>MySQL 4.1.2 or greater</li>
-				<li>The mod_rewrite Apache module</li>
-			</ul>
-
-				<p>Here's a list <a href="http://wordpress.org/hosting/">recommended by WordPress</a>.</p>
-			     </section>
-
-				<section>
-					<h2>Installing WordPress ctn...</h2>
-					     <p>Download the files and follow these steps:<br> <a href="http://codex.wordpress.org/Installing_WordPress#Famous_5-Minute_Install">Famous 5 minute install</a></p>
-				</section>
-
-				<section>
-					<h2>WordPress Core Files</h2>
-				<ul>
-					<li>wp-admin</li>
-					<li>wp-includes</li>
-					<li>root files</li>
-				</ul>
-
-					<h1><br>DO NOT EDIT CORE FILES EVER</h1>
-				</section>
-				
-				<section>
-					<h2>WP-Content</h2>
-					<ul>
-						<li>themes: themes are uploaded here</li>
-						<li>plugins: plugins are uploaded here</li>
-						<li>uploads: images and other media inserted in your site will be stored here</li>
-					</ul>
-				</section>
-
-				
-				<section>
-					<h1>Exercise</h1>
-					<ul>
-						<li>Download and Install Mamp/Xamp</li>
-						<li>Download and Install WordPress</li>
-						<li>Let's look at the WordPress dashboard</li>
-					</ul>
-				</section>
-				
-				<section>
 					<h1>Questions</h1>
-					<p>No? Let's <a href="lesson2.html">continue</a></p>
+					<p>No? <a href="lesson2.html">Let's enhance our site</a></p>
 				</section>
+
+
 			</div>
 
 			<!-- The navigational controls UI -->

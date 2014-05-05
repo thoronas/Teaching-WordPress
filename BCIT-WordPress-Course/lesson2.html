@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		
-		<title>WordPress Lesson 2: Themes, Templates and Child Themes</title>
+		<title>WordPress Lesson 2: Theming Techniques</title>
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -29,192 +29,306 @@
 			<div class="slides">
 				<section>
 					<h1>WordPress</h1>
-					<h2>Themes and Templates</h2>
+					<h2>Theming Techniques</h2>
 					<script>
 						// Delicously hacky. Look away.
 						if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
 					</script>
 				</section>
-				
 				<section>
-						<h2>Options?</h2>
-						<p>There are several ways to build a WordPress site. The right way for you will depend on your skill set and what your client needs.</p>
-
-					<ul>
-						<li>No budget: Free/Premium theme</li>
-						<li>Small budget: Premium/Child theme</li>
-						<li>Decent budget: Custom theme</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Free Themes</h2>
-
-					<p>It's best to stick to the <a href="http://wordpress.org/extend/themes/">WordPress theme repository</a>.</p>
-					<p>Smashing Magazine also is a great resources for new themes.</p>
-					<p>Avoid doing <a href="http://wpmu.org/why-you-should-never-search-for-free-wordpress-themes-in-google-or-anywhere-else/">random searches on Google</a>.
-				</section>
-
-				<section>
-					<h2>"Premium" Themes</h2>
-					<p><strike>Premium</strike> Commercial themes are inexpensive, but should only be used if you simply want to tweak a colour or two. You should also look into what type of support is available.</p>
-
-					<p>Commercial theme options:</p>
-					<ul>
-						<li><a href="http://cyberchimps.com/">Cyberchimps</a></li>		
-						<li><a href="http://headwaythemes.com/">Headway Themes</a></li>			
-						<li><a href="http://www.studiopress.com/">Studio Press</a></li>
-						<li><a href="http://thethemefoundry.com/">Theme Foundry</a></li>
-						<li><a href="http://www.woothemes.com/">Woo Themes</a></li>
-					</ul>
-					
-				</section>
-
-				<section>
-					<h2>Parent and Child Themes</h2>
-					<p>A child theme inherits the functionality of the parent theme and allows you to modify, or add to it.<br><strong>They allow you to code faster.</strong></p> 
-					<p>Any theme can be used, but these are good parent theme options:</p>
-
-					<ul>
-						
-						<li><a href="http://wordpress.org/extend/themes/hybrid">Hybrid</a></li>
-						<li><a href="http://wordpress.org/extend/themes/responsive">Responsive</a></li>
-						<li><a href="http://wordpress.org/extend/themes/thematic">Thematic</a></li>
-						<li><a href="http://profiles.wordpress.org/wordpressdotorg/">Twenty Family</a></li>
-						<li><a href="http://www.studiopress.com/themes/genesis">Genesis</a></li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Custom Themes</h2>
-					<p>Custom builds are the perfect choice if you want full control. This does not mean you are starting from scratch. It's best to use a starter theme and most developers have their favourite.</p>
-					<ul>
-						<li>I've built over 200+ WordPress sites with my <a href="http://www.bluelimemedia.com/wordpress/">Basic starter theme</a>.</li>
-						<li>Chris Coyier uses a <a href="http://digwp.com/2010/02/blank-wordpress-theme/">Blank</a> theme.</li>
-						<li><a href="https://github.com/viewportindustries/starkers">Starkers</a> is a good option for an HTML5 version.</li>
-						<li><a href="http://themefortress.com/reverie/">Reverie is a great HTML5 framework</a>.</li>
-						<li><a href="http://bootstrapwp.rachelbaker.me/">BootstrapWP</a> by Rachel Baker</li>
-					</ul>
+					<h2>Advanced Techniques</h2>
+					<p>Unique design and layouts can be achieved using WordPress features such as:</p>
+						<ol>
+							<li>The body_class() function</li>
+							<li>Custom fields</li>
+							<li>Post thumbnails (feature images)</li>
+							<li>Custom templates</li>
+							<li>Mastering the loop</li>
+							<li>Filters & hooks</li>
+							<li>Enqueueing scripts and styles</li>
+							<li>Custom post types & taxonomies</li>					
+						</ol>
 				</section>
 				
 				<section>
-					<h2>WordPress Templates</h2>
-					<p>A WordPress theme is a collection of template files that work together to produce a website.</p>
-					<img src="lib/img/structure.gif" width="500" height="400" alt="Structure">
-				</section>
-
-				<section>
-					<h2>Main Files</h2>
-					<p>Some templates (e.g. the header and footer) are used on <strong>ALL</strong> pages, while others are used only under specific conditions. </p>
-					<p>A theme usually has the following:</p>
-					<table style="width:100%">
-						<tr>
-							<td style="width:50%">
-								<ul>
-									<li>style.css</li>
-									<li>index.php</li>
-									<li>page.php</li>
-									<li>sidebar.php</li>
-								</ul>
-							</td>
-							<td style="width:50%">
-								<ul>
-									<li>comments.php</li>
-									<li>single.php</li>
-									<li>archive.php</li>
-									<li>404.php</li>
-								</ul>	
-							</td>
-						</tr>
-					</table>
-				</section>
-
-				<section>
-					<h2>Additional Files</h2>
-					<table style="width:100%; margin-bottom:50px;">
-						<tr>
-							<td style="width:50%">
-								<ul>
-								<li>search.php</li>
-								<li>front-page.php</li>
-								<li>author.php</li>
-								<li>category.php</li>
-							</ul>
-							</td>
-							<td style="width:50%">
-								<ul>
-								<li>taxonomy.php</li>
-								<li>attachment.php</li>
-								<li>content-page.php</li>
-								<li>sidebar-page.php</li>
-							</ul>
-							</td>
-						</tr>
-					</table>
-					<p>For a visual guide, <a href="http://yoast.com/wordpress-theme-anatomy/">see this infographic</a>.</p>
-				</section>
-
-				<section>
-					<h1>Exercise</h1>
-					<p>Download a copy of the <a href="http://wordpress.org/extend/themes/twentytwelve">Twenty Twelve</a><br> and let's look at the template files</p>
-				</section>
-				<section>
-					<h1>Making a Child Theme</h1>
-					<p>It's super easy and all you need to know is CSS.</p>
-					<p>How to use <a href="http://getfirebug.com">Firebug</a>, helps too!</p>
+					<h1>Body Class</h1>
 				</section>
 				
 				<section>
-					<h2>Steps required</h2>
-					<ol>
-						<li>Create new folder with the child theme name</li>
-						<li>Set up your style.css</li>
-						<li>Upload your child theme and activate it</li>
-					</ol>
+					<h2>Body class</h2>
+					<p>In your header.php you will have noticed the following code snippet.</p>
+
+<pre><code>
+  &lt;body &lt?php body_class(); ?&gt;&gt;
+	
+</code></pre>
+
+					<p>This function will generate html similar to this:</p>
+
+<pre><code>
+  &lt;body class="page page-id-10 page-child parent-pageid-8 
+  page-template page-template-default"&gt;
+	
+</code></pre>
+					<p>This built-in WordPress function adds a number of classes to your body tag which can be used to enhance your theme design.</p>
+
 				</section>
-
+				
 				<section>
-					<h2>Child theme CSS</h2>
-					<p>A child theme extends the parent theme and<br> <strong>MUST</strong> contain a style.css with the following<br> comment at the very top:</p>
-					<pre><code>
-/*
-Theme Name: The Name of your theme
-Theme URI: http://www.yourdomainname.com/
-Description: Your theme description goes here
-Author: Your name
-Author URI: http://www.yourdomainname.com
-Template: The parent folder name
-Version: 0.1
-*/
+					<h2>Examples</h2> 
 
-@import url("../parent-folder-name/style.css");
+			<p>Display different banners:</p>
+
+<pre><code>
+  .page-id-4 #header {background:#FFF url(images/about.jpg);}
+  .page-id-2 #header {background:#FFF url(images/contact.jpg);}
 
 </code></pre>
+			<p>Apply different widths:</p>
+<pre><code>
+  .blog #content {width: 600px;}
+  .page #content {width: 750px;}
+
+</code></pre>
+				</section>
+				
+				<section>
+
+				<h1>Exercise</h1> 
+				<ol>
+					<li>Continuing with your custom theme, have a look at the various classes generated and apply a few different styles.</li>
+				</ol>
+
+				</section>
+
+				<section>
+					<h1>Custom Fields</h1>
+				</section>
+				
+				<section>
+					<h2>Custom Fields</h2>
+					<p>Historically, <a href="http://codex.wordpress.org/Custom_Fields">custom fields</a> have been around the longest. These are useful in some very simple instances.</p>
+					<p>Each custom field is extra information known as meta-data and is composed of a key and a value.</p>
+
+
+				</section>
+				
+				<section>
+					<h2>get_post_meta()</h2>
+					<p>This function returns the values of the custom fields with the specified key from the specified post.</p>
+					
+<pre><code>
+  &lt;?php $meta_values = get_post_meta( $post_id, $key ); ?&gt;
+
+</code></pre>
+
+<p><strong>$post_id</strong> - The ID of the post from which you want the data. 
+<p><strong>$key</strong> - A string containing the name of the meta value you want.</p>
+				</section>
+
+				<section>
+					<h2>Example</h2>
+
+<pre><code>
+&lt;?php 
+   $quotation = get_post_meta($post->ID, 'quote', true);
+	if ($quotation) { 
+		echo $quotation; 
+	} else { 
+		echo 'You forgot to insert a quote...';
+	} 
+?&gt;
+	
+</code></pre>
+				</section>
+
+				
+				
+				<section>
+					<h1>Data Validation</h1>
+
+					<p>Untrusted data comes from many sources (users, third party sites, your own database!, …) and all of it needs to be validated both on input and output.</p>
 					
 				</section>				
+				
+				<section>
+					<h1>Data Output</h1>
 
+					<p>The following special characters can break mark up if output into HTML improperly:</p> 
+					<ul>
+					<li>single and double quotes (&quot;)</li> 
+					<li>ampersands (&amp;)</li>
+					<li>greater-than and less-than signs (&lt;, &gt;) </li>
+					</ul>
+					<p>Converting them so they can't be rendered as code is called output sanitation or escaping.</p>
+					
+				</section>	
+
+				<section>
+					<h1>Data Input</h1>
+
+					<p>Ensure that all data your users are entering into the database is intended.</p> 
+					
+					<p>WordPress provides many functions to ensure data being outputted and inputted is valid and in the proper format<br> (eg: is an email valid).
+						<p><a href="http://codex.wordpress.org/Data_Validation" target="_blank">WordPress codex on data validation</a></p>
+						<p><a href="http://wp.tutsplus.com/tutorials/creative-coding/data-sanitization-and-validation-with-wordpress/">More reading on data validation</a></p>
+						
+					</p>
+					
+				</section>
+				<section>
+					<h1>Example</h1>
+<p>Escaping urls</p>
+<pre><code>
+// this is bad
+&lt;a href="&lt;?php echo $random_url; ?&gt;"&gt;A Link&lt;/a&gt;
+
+//this is good
+&lt;a href="&lt;?php echo esc_url($random_url); ?&gt;"&gt;A Better Link&lt;/a&gt;
+	</code></pre>
+	<p>Escaping attributes</p>
+<pre><code>
+// this is bad
+&lt;p class="&lt;?php echo $random_meta; ?&gt;"&gt;Text&lt;/p&gt;
+
+//this is good
+&lt;p class="&lt;?php echo esc_attr($random_meta); ?&gt;"&gt;Text&lt;/p&gt;
+	</code></pre>
+
+				</section>
+				
 				<section>
 					<h1>Exercise</h1>
 					<ol>
-						<li>Let's make a child theme</li>
+						<li>Insert custom fields on your pages.</li>
+						<li>Update your page.php template to display testimonials in the sidebar.</li>
+						<li>Style the outputted HTML to match the design in the PSD.</li>
 					</ol>
 				</section>
 				
 				<section>
-					<h1>Child Theme Resources</h1>
+					<h1>Post Thumbnails</h1>
+					<h2>(featured images)</h2>
+				</section>
+
+				<section>
+					<h2>Post Thumbnail</h2>
+					<p>Custom fields were used to display featured images, but WordPress version 2.9 introduced <a href="http://codex.wordpress.org/Post_Thumbnails">Post Thumbnails</a> and made this process redundant. <code>The post-thumbnail()</code> function is the method of choice for displaying featured images.</p>
+
+<pre><code>
+	add_theme_support( 'post-thumbnails' );
+	
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Using Post Thumbnails</h2>
+					<p>Once you've declared theme support for this feature, a new "Featured Image" area will appear in the bottom right hand side of your post and page admin UI.</p>
+
+					<p>To add a featured image, simply click the link, add a new image like you would any other image and select "Use as featured image" instead of insert into post.</p>
+				</section>
+				
+				<section>
+					<h2>Displaying Post Thumbnails</h2>
+
+					<p>Once added to your post or page, you can display it by adding the following code within the loop.</p>
+
+<pre><code>
+	&lt;?php the_post_thumbnail(); ?&gt;
+	
+</code></pre>
+				</section>
+				
+				
+
+				<section>
+					<h2>Post Thumbnails Sizes</h2>
+
+					<p>The size of your thumbnails is set in<br> Settings > Media.</p>
+<pre><code>
+the_post_thumbnail( 'thumbnail' );   // default 150px x 150px
+the_post_thumbnail( 'medium' );      // default 300px x 300px
+the_post_thumbnail( 'large' );       // default 1024px x 1024px
+the_post_thumbnail( 'full' );        // original size uploaded
+
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Additional Sizes</h2>
+
+					<p>You may want to add more sizes to suit your design.</p>
+
+<pre><code>
+	add_image_size( 'single-post-thumbnail', 350, 9999 );
+	add_image_size( 'homepage-thumb', 220, 180, true ); 
+	
+</code></pre>
+					<p>You can then use these new sizes like so:</p>
+<pre><code>
+&lt;?php 
+	the_post_thumbnail( 'single-post-thumbnail' ); 
+	
+?&gt;</code></pre>
+				</section>
+				
+				<section>
+					<h2>Give thumbnails their own class</h2>
+					
+					<p>Display the Post Thumbnail with a class "alignleft"</p>
+
+<pre><code> 
+  the_post_thumbnail( 'thumbnail', array('class' => 'alignleft') ); 
+  
+  the_post_thumbnail( 'portofolio-img', array('class' => 'fancy') ); 
+  
+</code></pre>
+				</section>
+				
+				<section>
+					<h1>Exercise</h1>
+					<ol>
+						<li>Insert featured images in your blog posts.</li>
+						<li>Update your templates to display small images on your blog and archive, but larger ones on your single posts.</li>
+						<li>Style the outputted html to match the design in the PSD.</li>
+					</ol>
+				</section>
+				
+
+				<section>
+					<h1>Body Class Resources</h1>
+						<ul>
+							<li><a href="http://www.nathanrice.net/blog/wordpress-2-8-and-the-body_class-function/">Nathan Rice discusses the body class</a></li>
+							<li><a href="http://wpmu.org/how-to-use-the-body-class-tag-to-apply-custom-styles-to-wordpress-pages/">How to Use the body class tag...</a></li>
+						</ul>
+				</section>
+				
+				<section>
+					<h1>Custom Field Resources</h1>
 					<ul>
-						<li><a href="http://codex.wordpress.org/Child_Themes" target="_blank">Codex: Child Themes</a></li>
-						<li><a href="http://aaron.jorb.in/blog/2010/04/introducing-thirty-ten/#TZ4sO-SL-JE" target="_blank">Introducing Thirty Ten</a></li>
-						<li><a href="http://wpmu.org/12-free-twentyten-child-themes-for-wordpress/" target="_blank">12 TwentyTen child themes</a></li>
-						<li><a href="http://wpmu.org/customizing-your-wordpress-theme-using-firebug"  target="_blank">Customizing Your WordPress Theme Using Firebug</a></li>
+					<li><a href="http://codex.wordpress.org/Custom_Fields">Codex: custom fields</a></li>
+					<li><a href="http://perishablepress.com/press/2008/12/17/wordpress-custom-fields-tutorial/">Using WordPress custom fields</a></li>
+					<li><a href="http://coding.smashingmagazine.com/2010/04/29/extend-wordpress-with-custom-fields/">Extend WordPress with custom fields</a></li>
+					<li><a href="http://www.wpbeginner.com/wp-tutorials/wordpress-custom-fields-101-tips-tricks-and-hacks/">Custom fields tips and tricks</a></li>
+					<li><a href="http://sixrevisions.com/wordpress/custom-fields-search/">Enhancing WordPress custom fields</a></li>
 					</ul>
 				</section>
+				
+				<section>
+					<h1>Post Thumbnails Resources</h1>
+					<ul>
+						<li><a href="http://markjaquith.wordpress.com/2009/12/23/new-in-wordpress-2-9-post-thumbnail-images/">New in WordPress 2.9: Post Thumbnail Images</a></li>
+						<li><a href="http://justintadlock.com/archives/2009/11/16/everything-you-need-to-know-about-wordpress-2-9s-post-image-feature">Everything you need to know about WordPress 2.9′s post image feature</a></li>
+						<li><a href="http://justintadlock.com/archives/2012/07/05/how-to-define-a-default-post-thumbnail">How to define a default post thumbnail</a></li>
+					
+				</section>
+				
 				
 				<section>
 					<h1>Questions</h1>
-					<p>No? <a href="lesson3.html">Ready for more?</a></p>
+					<p>No? <a href="lesson3.html">Let's continue</a></p>
 				</section>
-	
+				
 			</div>
 
 			<!-- The navigational controls UI -->

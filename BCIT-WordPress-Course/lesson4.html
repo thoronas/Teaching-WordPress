@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		
-		<title>WordPress Lesson 4: Theming Techniques</title>
+		<title>WordPress Lesson 4: Custom Post Types and Taxonomies</title>
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -28,307 +28,249 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>WordPress</h1>
-					<h2>Theming Techniques</h2>
+					<h1>Custom Posts Type & Taxonomies</h1>
+					<h2>More CMS Goodness</h2>
 					<script>
 						// Delicously hacky. Look away.
 						if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
 					</script>
 				</section>
-				<section>
-					<h2>Advanced Techniques</h2>
-					<p>Unique design and layouts can be achieved using WordPress features such as:</p>
-						<ol>
-							<li>The body_class() function</li>
-							<li>Custom fields</li>
-							<li>Post thumbnails (feature images)</li>
-							<li>Custom templates</li>
-							<li>Mastering the loop</li>
-							<li>Filters & hooks</li>
-							<li>Enqueueing scripts and styles</li>
-							<li>Custom post types & taxonomies</li>					
-						</ol>
-				</section>
-				
-				<section>
-					<h1>Body Class</h1>
-				</section>
-				
-				<section>
-					<h2>Body class</h2>
-					<p>In your header.php you will have noticed the following code snippet.</p>
-
-<pre><code>
-  &lt;body &lt?php body_class(); ?&gt;&gt;
-	
-</code></pre>
-
-					<p>This function will generate html similar to this:</p>
-
-<pre><code>
-  &lt;body class="page page-id-10 page-child parent-pageid-8 
-  page-template page-template-default"&gt;
-	
-</code></pre>
-					<p>This built-in WordPress function adds a number of classes to your body tag which can be used to enhance your theme design.</p>
-
-				</section>
-				
-				<section>
-					<h2>Examples</h2> 
-
-			<p>Display different banners:</p>
-
-<pre><code>
-  .page-id-4 #header {background:#FFF url(images/about.jpg);}
-  .page-id-2 #header {background:#FFF url(images/contact.jpg);}
-
-</code></pre>
-			<p>Apply different widths:</p>
-<pre><code>
-  .blog #content {width: 600px;}
-  .page #content {width: 750px;}
-
-</code></pre>
-				</section>
-				
-				<section>
-
-				<h1>Exercise</h1> 
-				<ol>
-					<li>Continuing with your custom theme, have a look at the various classes generated and apply a few different styles.</li>
-				</ol>
-
-				</section>
 
 				<section>
-					<h1>Custom Fields</h1>
-				</section>
-				
-				<section>
-					<h2>Custom Fields</h2>
-					<p>Historically, <a href="http://codex.wordpress.org/Custom_Fields">custom fields</a> have been around the longest. These are useful in some very simple instances.</p>
-					<p>Each custom field is extra information known as meta-data and is composed of a key and a value.</p>
-
-
-				</section>
-				
-				<section>
-					<h2>get_post_meta()</h2>
-					<p>This function returns the values of the custom fields with the specified key from the specified post.</p>
-					
-<pre><code>
-  &lt;?php $meta_values = get_post_meta( $post_id, $key ); ?&gt;
-
-</code></pre>
-
-<p><strong>$post_id</strong> - The ID of the post from which you want the data. 
-<p><strong>$key</strong> - A string containing the name of the meta value you want.</p>
-				</section>
-
-				<section>
-					<h2>Example</h2>
-
-<pre><code>
-&lt;?php 
-   $quotation = get_post_meta($post->ID, 'quote', true);
-	if ($quotation) { 
-		echo $quotation; 
-	} else { 
-		echo 'You forgot to insert a quote...';
-	} 
-?&gt;
-	
-</code></pre>
-				</section>
-
-				
-				
-				<section>
-					<h1>Data Validation</h1>
-
-					<p>Untrusted data comes from many sources (users, third party sites, your own database!, …) and all of it needs to be validated both on input and output.</p>
-					
-				</section>				
-				
-				<section>
-					<h1>Data Output</h1>
-
-					<p>The following special characters can break mark up if output into HTML improperly:</p> 
+					<h2>WordPress Content Types</h2>
+					<p>WordPress comes with the following default types:</p>
 					<ul>
-					<li>single and double quotes (&quot;)</li> 
-					<li>ampersands (&amp;)</li>
-					<li>greater-than and less-than signs (&lt;, &gt;) </li>
+						<li>Post</li>
+						<li>Page</li>
+						<li>Attachment</li>
+						<li>Revisions</li>
+						<li>Nav Menus</li>
 					</ul>
-					<p>Converting them so they can't be rendered as code is called output sanitation or escaping.</p>
+
+					<p>But you can also define your own <a href="http://codex.wordpress.org/Post_Types">Custom Types</a>.</p>	
+					
+				</section>
+				
+				<section>
+					<h2>Adding CPTs</h2>
+					<p>CPTs are added using the <a href="http://codex.wordpress.org/Function_Reference/register_post_type">register_post_type</a> function.</p>
+<pre><code>
+add_action( 'init', 'create_post_type' );
+  function create_post_type() {
+    register_post_type( 'testimonial',
+	  array(
+	    'labels' => array(
+	    'name' => __( 'Testimonials' ),	
+	    'singular_name' => __( 'Testimonial' )
+	  ),
+	'public' => true,
+	'has_archive' => true,
+	)
+  );
+}
+</code></pre>
+
+				</section>
+				
+				<section>
+					<h2>Different ways to create CPT</h2>
+					<p>You can add the code directly in your functions.php.</p>
+
+					<p>Plugins: Both <a href="http://wordpress.org/extend/plugins/custom-post-type-ui/">Custom Post Type UI</a> and <a href="http://wordpress.org/extend/plugins/sld-custom-content-and-taxonomies/">Stresslimit Custom Content Types</a> are very useful.</p>
+
+					<p>Handy Tool: <a href="http://themergency.com/generators/wordpress-custom-post-types/">WordPress Custom Post Type Code Generator</a>
+
+					<p><br><strong>NOTE</strong>: Once you've created your CPT you need to reset your permalinks.</p>
+				</section>
+				
+				<section>
+				<h2>CPTs in your admin</h2>
+				<img src="lib/img/CPT-testimonials.png" width="833" height="443" alt="Once added to your admin, a new area of content will appear.">
+				</section>
+				
+				<section>
+					<h2>Querying CPTs</h2>
+					<p>Display the information by using <code>WP_query</code></p>
+
+<pre><code>
+ $args = array( 'post_type' => 'testimonial', 'posts_per_page' => 10 );
+ $loop = new WP_Query( $args );
+   while ( $loop->have_posts() ) : $loop->the_post();
+   the_title();
+   the_content();
+ endwhile; 	
+</code></pre>
+				</section>
+				
+				<section>
+					<h2>CPT Templates</h2>
+					<p>WordPress theme files supports Custom Types.</p>
+
+					<ul>
+						<li>single-{posttype}.php</li>
+						<li>archive-{posttype}.php</li>
+					</ul>
+
+					<p><br>Custom templates can also be used to display your CPT.</p>
+				</section>
+				
+				
+				<section>
+					<h1>Exercise</h1>
+
+				<ul>
+					<li>Replace the quotes in your sidebars with a testimonial CPT</li>
+					<li>Display Testimonials at random on your sidebar</li>
+				</ul>
+
+				</section>
+
+
+				<section>
+					<h2>Custom Taxonomies</h2>
+
+					<p>Categories and Tags are examples of Taxonomies in WordPress. You have the ability to create your own.</p>
+					<pre><code>
+add_action( 'init', 'create_custom_tax' );
+					
+function create_custom_tax() {
+	$args = array(
+		'label' => __( 'Genre' ),
+		//hierarchical true is like categories
+		'hierarchical' => true,
+	);
+	
+	register_taxonomy( 'genre', 'post', $args);
+}  
+					</code></pre>					
+					
+					<p>This will create a custom taxonomy for posts called "Genre".</p>
+
+					<p><a href="http://codex.wordpress.org/Function_Reference/register_taxonomy">WordPress Codex on taxonomies</a></p>
+					
+				</section>
+
+				<section>
+					<h2>Taxonomy Templates</h2>
+					<p>WordPress theme files supports Taxonomies.</p>
+
+					<ul>
+						<li>taxonomy-{taxonomy}-{term}.php</li>
+						<li>taxonomy-{taxonomy}.php</li>
+						<li>taxonomy.php</li>
+					</ul>
+
+					<p><br>Following our previous example our files would be called: </p>
+					<ul>						
+						<li>taxonomy-genre-fantasy.php</li>
+						<li>taxonomy-genre.php</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Taxonomy Template Hierarchy</h2>
+					<p>WordPress looks for the taxonomy template in this order:</p>
+
+					<ul>
+						<li>taxonomy-{taxonomy}-{term}.php</li>
+						<li>taxonomy-{taxonomy}.php</li>
+						<li>taxonomy.php</li>
+						<li>archive.php</li>
+						<li>index.php</li>
+					</ul>
+
+
+				</section>
+
+				<section>
+
+					<h2>Using Taxonomies</h2>
+					<p>Getting taxonomy terms in your templates using <a href="http://codex.wordpress.org/Function_Reference/get_terms">get_terms</a>: </p>
+					<pre><code>
+ get_terms( $taxonomies, $args )
+
+</code></pre>					
+					
+					<p>Getting taxonomy terms associated with a post using <a href="http://codex.wordpress.org/Function_Reference/get_the_terms">get_the_terms</a>: </p>
+					<pre><code>
+get_the_terms( $id, $taxonomy )
+
+</code></pre>					
 					
 				</section>	
 
 				<section>
-					<h1>Data Input</h1>
 
-					<p>Ensure that all data your users are entering into the database is intended.</p> 
+					<h2>get_terms example</h2>
+					<p>Listing all the terms in our Genre taxonomy.</p>
+					<pre><code> 
+$terms = get_terms("genre"); 
+if ( $terms && ! is_wp_error($terms) ){
+
+	echo "&lt;ul&gt;";
+	foreach ( $terms as $term ) {
+		echo '&lt;li&gt;&lt;a href="'
+		. get_term_link( $term->slug, $term->taxonomy ) 
+		. '"&gt;' .$term->name. "&lt;/a&gt;&lt;/li&gt;'; 	
+	}
+	echo "&lt;/ul&gt;";
+})
+					 </code></pre>					
+										
+				</section>
+
+				<section>
+
+					<h2>get_the_terms example</h2>
+					<p>Listing all the terms in our Genre taxonomy related to an individual post.</p>
+					<pre><code> 
+$terms = get_the_terms($post->ID, "genre"); 
+if ( $terms && ! is_wp_error($terms) ){
+
+	echo "&lt;ul&gt;";
+	foreach ( $terms as $term ) {
+		echo '&lt;li&gt;&lt;a href="'
+		. get_term_link( $term->slug, $term->taxonomy ) 
+		. '"&gt;' .$term->name. "&lt;/a&gt;&lt;/li&gt;'; 	
+	}
+	echo "&lt;/ul&gt;";
+})
+					 </code></pre>					
+										
+				</section>
+				
+				<section>
+				
+				<h1>Exercise</h1>				
+				<ul>
+				
+					<li>Add custom taxonomy.</li>
+					<li>Create several terms and apply them to posts.</li>
+					<li>Create a page template and add a list of the terms below the content.</li>
 					
-					<p>WordPress provides many functions to ensure data being outputted and inputted is valid and in the proper format<br> (eg: is an email valid).
-						<p><a href="http://codex.wordpress.org/Data_Validation" target="_blank">WordPress codex on data validation</a></p>
-						<p><a href="http://wp.tutsplus.com/tutorials/creative-coding/data-sanitization-and-validation-with-wordpress/">More reading on data validation</a></p>
-						
-					</p>
+				</ul>
+				</section>
+				
+				<section>
+					<h2>CPT Resources</h2>
 					
-				</section>
-				<section>
-					<h1>Example</h1>
-<p>Escaping urls</p>
-<pre><code>
-// this is bad
-&lt;a href="&lt;?php echo $random_url; ?&gt;"&gt;A Link&lt;/a&gt;
-
-//this is good
-&lt;a href="&lt;?php echo esc_url($random_url); ?&gt;"&gt;A Better Link&lt;/a&gt;
-	</code></pre>
-	<p>Escaping attributes</p>
-<pre><code>
-// this is bad
-&lt;p class="&lt;?php echo $random_meta; ?&gt;"&gt;Text&lt;/p&gt;
-
-//this is good
-&lt;p class="&lt;?php echo esc_attr($random_meta); ?&gt;"&gt;Text&lt;/p&gt;
-	</code></pre>
-
-				</section>
-				
-				<section>
-					<h1>Exercise</h1>
-					<ol>
-						<li>Insert custom fields on your pages.</li>
-						<li>Update your page.php template to display testimonials in the sidebar.</li>
-						<li>Style the outputted HTML to match the design in the PSD.</li>
-					</ol>
-				</section>
-				
-				<section>
-					<h1>Post Thumbnails</h1>
-					<h2>(featured images)</h2>
-				</section>
-
-				<section>
-					<h2>Post Thumbnail</h2>
-					<p>Custom fields were used to display featured images, but WordPress version 2.9 introduced <a href="http://codex.wordpress.org/Post_Thumbnails">Post Thumbnails</a> and made this process redundant. <code>The post-thumbnail()</code> function is the method of choice for displaying featured images.</p>
-
-<pre><code>
-	add_theme_support( 'post-thumbnails' );
-	
-</code></pre>
-				</section>
-
-				<section>
-					<h2>Using Post Thumbnails</h2>
-					<p>Once you've declared theme support for this feature, a new "Featured Image" area will appear in the bottom right hand side of your post and page admin UI.</p>
-
-					<p>To add a featured image, simply click the link, add a new image like you would any other image and select "Use as featured image" instead of insert into post.</p>
-				</section>
-				
-				<section>
-					<h2>Displaying Post Thumbnails</h2>
-
-					<p>Once added to your post or page, you can display it by adding the following code within the loop.</p>
-
-<pre><code>
-	&lt;?php the_post_thumbnail(); ?&gt;
-	
-</code></pre>
-				</section>
-				
-				
-
-				<section>
-					<h2>Post Thumbnails Sizes</h2>
-
-					<p>The size of your thumbnails is set in<br> Settings > Media.</p>
-<pre><code>
-the_post_thumbnail( 'thumbnail' );   // default 150px x 150px
-the_post_thumbnail( 'medium' );      // default 300px x 300px
-the_post_thumbnail( 'large' );       // default 1024px x 1024px
-the_post_thumbnail( 'full' );        // original size uploaded
-
-</code></pre>
-				</section>
-
-				<section>
-					<h2>Additional Sizes</h2>
-
-					<p>You may want to add more sizes to suit your design.</p>
-
-<pre><code>
-	add_image_size( 'single-post-thumbnail', 350, 9999 );
-	add_image_size( 'homepage-thumb', 220, 180, true ); 
-	
-</code></pre>
-					<p>You can then use these new sizes like so:</p>
-<pre><code>
-&lt;?php 
-	the_post_thumbnail( 'single-post-thumbnail' ); 
-	
-?&gt;</code></pre>
-				</section>
-				
-				<section>
-					<h2>Give thumbnails their own class</h2>
-					
-					<p>Display the Post Thumbnail with a class "alignleft"</p>
-
-<pre><code> 
-  the_post_thumbnail( 'thumbnail', array('class' => 'alignleft') ); 
-  
-  the_post_thumbnail( 'portofolio-img', array('class' => 'fancy') ); 
-  
-</code></pre>
-				</section>
-				
-				<section>
-					<h1>Exercise</h1>
-					<ol>
-						<li>Insert featured images in your blog posts.</li>
-						<li>Update your templates to display small images on your blog and archive, but larger ones on your single posts.</li>
-						<li>Style the outputted html to match the design in the PSD.</li>
-					</ol>
-				</section>
-				
-
-				<section>
-					<h1>Body Class Resources</h1>
-						<ul>
-							<li><a href="http://www.nathanrice.net/blog/wordpress-2-8-and-the-body_class-function/">Nathan Rice discusses the body class</a></li>
-							<li><a href="http://wpmu.org/how-to-use-the-body-class-tag-to-apply-custom-styles-to-wordpress-pages/">How to Use the body class tag...</a></li>
-						</ul>
-				</section>
-				
-				<section>
-					<h1>Custom Field Resources</h1>
 					<ul>
-					<li><a href="http://codex.wordpress.org/Custom_Fields">Codex: custom fields</a></li>
-					<li><a href="http://perishablepress.com/press/2008/12/17/wordpress-custom-fields-tutorial/">Using WordPress custom fields</a></li>
-					<li><a href="http://coding.smashingmagazine.com/2010/04/29/extend-wordpress-with-custom-fields/">Extend WordPress with custom fields</a></li>
-					<li><a href="http://www.wpbeginner.com/wp-tutorials/wordpress-custom-fields-101-tips-tricks-and-hacks/">Custom fields tips and tricks</a></li>
-					<li><a href="http://sixrevisions.com/wordpress/custom-fields-search/">Enhancing WordPress custom fields</a></li>
+						<li><a href="http://codex.wordpress.org/Post_Types">Codex: custom types</a></li>
+						<li><a href="http://kovshenin.com/2010/custom-post-types-in-wordpress-3-0/">Custom post types</a></li>
+						<li><a href="http://yoast.com/custom-post-type-snippets/">Custom post type snippets</a></li>
 					</ul>
 				</section>
 				
 				<section>
-					<h1>Post Thumbnails Resources</h1>
+					<h2>Taxonomy Resources</h2>
 					<ul>
-						<li><a href="http://markjaquith.wordpress.com/2009/12/23/new-in-wordpress-2-9-post-thumbnail-images/">New in WordPress 2.9: Post Thumbnail Images</a></li>
-						<li><a href="http://justintadlock.com/archives/2009/11/16/everything-you-need-to-know-about-wordpress-2-9s-post-image-feature">Everything you need to know about WordPress 2.9′s post image feature</a></li>
-						<li><a href="http://justintadlock.com/archives/2012/07/05/how-to-define-a-default-post-thumbnail">How to define a default post thumbnail</a></li>
+						<li><a href="http://wp.smashingmagazine.com/2012/01/04/create-custom-taxonomies-wordpress/">How To Create Custom Taxonomies In WordPress</a></li>
+						<li><a href="http://justintadlock.com/archives/2009/06/04/using-custom-taxonomies-to-create-a-movie-database">Using custom taxonomies to create a movie database</a></li>
+					</ul>
 					
 				</section>
 				
-				
-				<section>
-					<h1>Questions</h1>
-					<p>No? <a href="lesson5.html">Let's continue</a></p>
-				</section>
-				
+
 			</div>
 
 			<!-- The navigational controls UI -->
